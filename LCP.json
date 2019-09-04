@@ -1,8 +1,9 @@
 {
+	"kind": "StatefulSet",
 	"id": "search",
-	"image": "pedrokuhnmaster/elasticsearch:6.1.4-3.0.3-2",
-	"cpu": 1,
-	"memory": 512,
+	"image": "liferaycloud/elasticsearch:6.1.4-3.0.3",
+	"cpu": 8,
+	"memory": 8192,
 	"ports": [
 		{
 			"port": 9300,
@@ -31,5 +32,13 @@
 	},
 	"env": {
 		"ES_JAVA_OPTS": "-Xms4g -Xmx4g"
+	},
+	"environments": {
+		"infra": {
+			"deploy": false
+		},
+		"prd": {
+			"podManagementPolicy":"Parallel"
+		}
 	}
 }
