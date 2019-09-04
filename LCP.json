@@ -1,21 +1,35 @@
 {
-  "id": "search",
-  "image": "pedrokuhnmaster/elasticsearch:6.1.4-3.0.3-2",
-  "loadBalancer": {
-    "targetPort": 80
-  },
-  "readinessProbe": {
-    "httpGet": {
-      "path": "/",
-      "port": 80
-    }
-  },
-  "livenessProbe": {
-    "httpGet": {
-      "path": "/",
-      "port": 80
-    }
-  },
-  "memory": 512,
-  "cpu": 1
+	"id": "search",
+	"image": "pedrokuhnmaster/elasticsearch:6.1.4-3.0.3-2",
+	"cpu": 1,
+	"memory": 512,
+	"ports": [
+		{
+			"port": 9300,
+			"external": false
+		},
+		{
+			"port": 9200,
+			"external": false
+		}
+	],
+	"readinessProbe": {
+		"httpGet": {
+			"path": "/",
+			"port": 9200
+		},
+		"timeoutSeconds": 1,
+		"successThreshold": 3
+	},
+	"livenessProbe": {
+		"httpGet": {
+			"path": "/_cluster/health",
+			"port": 9200
+		},
+		"initialDelaySeconds": 300,
+		"timeoutSeconds": 5
+	},
+	"env": {
+		"ES_JAVA_OPTS": "-Xms4g -Xmx4g"
+	}
 }
