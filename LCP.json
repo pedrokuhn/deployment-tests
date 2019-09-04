@@ -1,5 +1,6 @@
 {
-  "id": "ui",
+  "id": "search",
+  "image": "pedrokuhnmaster/elasticsearch:6.1.4-3.0.3-2",
   "loadBalancer": {
     "targetPort": 80
   },
